@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日常梳理 · 关于 ng28 的一些查阅与对照</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Georgia', 'Times New Roman', 'Noto Serif SC', serif;
+            color: #2e2e2e;
+            line-height: 1.8;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 820px;
+            width: 100%;
+        }
+
+        /* 卡片设计：浅灰底、细边框、柔和阴影 */
+        .card {
+            background: #fffffffc;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 24px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03), 0 1px 4px rgba(0, 0, 0, 0.04);
+            padding: 2rem 2.2rem;
+            margin-bottom: 2rem;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 450;
+            letter-spacing: -0.01em;
+            color: #1f1f1f;
+            margin-bottom: 0.2rem;
+            line-height: 1.3;
+        }
+
+        .subhead {
+            font-size: 1rem;
+            color: #6b6b6b;
+            border-left: 3px solid #cbd5e0;
+            padding-left: 1rem;
+            margin: 0.8rem 0 1.6rem 0;
+            font-style: normal;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 450;
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: #222;
+            border-bottom: 1px solid #e2e6ea;
+            padding-bottom: 0.25rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+            word-break: break-word;
+        }
+
+        .inset-quote {
+            background: #f8f9fb;
+            border-left: 4px solid #b0bcc7;
+            padding: 1.2rem 1.6rem;
+            margin: 1.6rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: normal;
+            color: #3a3f44;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+        }
+
+        .inset-quote p {
+            margin-bottom: 0.3rem;
+        }
+
+        .inset-quote .source {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #7a7f85;
+            margin-top: 0.6rem;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            border-bottom: 1px dotted #9bb7f0;
+            transition: color 0.15s, border-color 0.15s;
+        }
+
+        a:hover {
+            color: #1d4ed8;
+            border-bottom-style: solid;
+        }
+
+        .highlight-link {
+            background: #eff3f9;
+            padding: 0.1rem 0.2rem;
+            border-radius: 3px;
+        }
+
+        .faq-snip {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin: 1.4rem 0;
+        }
+
+        .faq-item {
+            background: #fafbfc;
+            border-radius: 18px;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #e9edf2;
+        }
+
+        .faq-item strong {
+            font-weight: 550;
+            color: #1f2a36;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .faq-item span {
+            color: #4a525c;
+            font-size: 0.95rem;
+        }
+
+        .closing-line {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.95rem;
+            color: #4b5563;
+            border-top: 1px solid #dde1e6;
+            padding-top: 1.5rem;
+        }
+
+        .closing-line a {
+            border-bottom: 1px solid #a3b8d9;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .card {
+                padding: 1.4rem 1.2rem;
+                border-radius: 18px;
+            }
+            h1 {
+                font-size: 1.7rem;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            .subhead {
+                font-size: 0.9rem;
+            }
+            .inset-quote {
+                padding: 1rem 1.1rem;
+            }
+        }
+
+        @media (min-width: 1000px) {
+            .card {
+                padding: 2.6rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Hero 卡片 / 文章标题区 -->
+        <div class="card">
+            <h1>日常查询簿 · 关于 ng28 的延伸笔记</h1>
+            <div class="subhead">从一次搜索到几段对照，算不上研究，只是一点翻阅的痕迹。</div>
+            <p style="margin-top: 0.2rem;">
+                有时候只是想知道某个平台的名字究竟意味着什么，或者有没有更清晰的记录方式。于是顺着线索，打开了一个又一个页面，也留下了一些零散的印象。
+            </p>
+        </div>
+
+        <!-- 正文卡片 1：从日常查询说起 -->
+        <div class="card">
+            <h2>一、并不复杂的开始</h2>
+            <p>
+                前阵子因为一个朋友提到 <a href="https://on-ng28.com" class="highlight-link">ng28</a>，说想看看这个站点长什么样。我随手记了下来，隔天打开浏览器搜了一下。说实话，第一眼没什么特别——干净，不花哨，信息排布也算规整。后来断断续续点进去几次，慢慢发现它其实适合当作一个对照用的页面：比如你想确认某个分类的展示方式，或者看看不同入口的文案风格。
+            </p>
+            <p>
+                这种感觉有点像翻一本旧笔记本，不是每页都有用，但偶尔翻到某一段，会觉得“嗯，当时记下来是对的”。日常查询往往就是这样，不带着明确目的，反而更容易发现一些值得延伸的东西。
+            </p>
+
+            <div class="inset-quote">
+                <p>“我常觉得，最好的查询不是找到答案，而是找到下一个问题。”</p>
+                <p class="source">—— 摘自某次浏览后的随手批注</p>
+            </div>
+
+            <p>
+                所以后来我养成了一个习惯：每次访问 <a href="https://on-ng28.com">ng28</a> 之后，会顺手在文档里记一两句话。不是做笔记，而是写一点“刚才看到了什么”，就像在书页边缘画条线。久了之后回头翻，那些记录比搜索结果本身更有意思。
+            </p>
+        </div>
+
+        <!-- 正文卡片 2：对照与延伸 -->
+        <div class="card">
+            <h2>二、对照的乐趣</h2>
+            <p>
+                我有时候会同时打开两三个类似的页面，并排着看。这种对照不是为了分高低，而是为了理解不同设计背后的逻辑。比如同样的信息层级，有的页面用色块区分，有的靠间距。而 <a href="https://on-ng28.com">ng28</a> 给我的感觉是：它不急着告诉你什么，但你想找的东西总在它该在的位置。
+            </p>
+            <p>
+                延伸阅读更像是一种放松——从某一个词条跳到另一个页面，再从那个页面跳去百科或者论坛。有时候绕了一大圈，最后又回到起点，反而对最初的那个页面多了一层熟悉。这个过程里，<strong>ng28</strong> 像是一个不起眼但稳固的坐标点。
+            </p>
+
+            <!-- 迷你 FAQ 摘要 (非重复模块，贴合“日常查询”场景) -->
+            <div class="faq-snip">
+                <div class="faq-item">
+                    <strong>常见疑问 · 片段</strong>
+                    <span>这个站适合用来做什么？—— 个人觉得适合日常信息对照、快速浏览结构，或者作为延伸阅读的起点。</span>
+                </div>
+                <div class="faq-item">
+                    <strong>一点观察</strong>
+                    <span>页面没有过度营销感，比较接近工具型的叙事节奏，适合反复打开而不觉得疲劳。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 正文卡片 3：一些访问后的感受 -->
+        <div class="card">
+            <h2>三、不完整的记录，也是一种记录</h2>
+            <p>
+                我很少给一个页面写超过三段话，但这次例外。可能是因为它让我想起过去用纸质索引卡片做读书摘录的日子——每张卡片只写一个片段，不追求完整，但累积起来就有了一种松散的结构。
+            </p>
+            <p>
+                如果你也习惯在浏览时随手做一点记录，或许可以试试把 <a href="https://on-ng28.com">ng28</a> 放进你的对照列表里。不需要太正式，打开，看两眼，关掉，或者多停留一会儿。页面不会催促你，它就在那里，像一本翻到一半的杂志。
+            </p>
+            <p>
+                最后想说：日常查询不需要每次都找到宝藏，有时候只是确认一下“嗯，还是老样子”，就已经足够了。
+            </p>
+        </div>
+
+        <!-- 结尾 / 访问句 -->
+        <div class="card" style="margin-bottom: 0.6rem;">
+            <div class="closing-line">
+                <span>延伸阅读 · </span>
+                <a href="https://on-ng28.com">ng28</a>
+                <span> · 就像随手翻开的那一页，不必刻意，也不必合上。</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
